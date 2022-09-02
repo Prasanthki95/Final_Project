@@ -21,8 +21,23 @@ class Product{
         $result
     )
     {
+        //Getting the value from function and returning with result
+        return $this->getParentCategory(). " - ".$result;
+    }
+
+    public function getParentCategory()
+    {
         $category = $this->_registry->registry('current_category');//get current category
-        return $category->getName(). " - ".$result;
+        $parentcategories = $category -> getParentCategories(); //get parent categories of current category
+
+        foreach ($parentcategories as $parent) {
+            //Getting category in Level 2 
+            if ($parent->getLevel() == 2) {
+                // returns the level 2 category Name;
+                return $parent->getName();
+            }
+        }
+        return NULL;
     }
 
 }
